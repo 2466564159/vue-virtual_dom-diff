@@ -1,22 +1,27 @@
 import h from './mysnabbdom/h'
+import patch from './mysnabbdom/patch'
 
-const myVnode1 = h('div', {}, [
-  h('p', {}, 'aaa'),
-  h('p', {}, 'bbb'),
-  h('p', {}, 'ccc'),
-  h('p', {}, h('span', {}, 'A'))
+const Vnode1 = h('section', {}, [
+  h('p', {}, 'a'),
+  h('p', {}, 'b'),
+  h('p', {}, 'c')
 ])
 
-const myVnode2 = h('ul', {}, [
-  h('li', {}, '苹果'),
-  h('li', {}, '西瓜'),
-  h('li', {}, [
-    h('div', {}, [
-      h('p', {}, 'aaa'),
-      h('p', {}, 'bbb')
-    ])
-  ]),
-  h('li', {}, h('span', {}, '火龙果'))
+// 得到盒子和按钮
+const container = document.getElementById('container')
+const btn = document.getElementById('btn')
+
+// 第一次上树
+patch(container, Vnode1)
+
+// 新的节点
+const Vnode2 = h('section', {}, [
+  h('p', {}, 'a'),
+  h('p', {}, 'b'),
+  h('p', {}, 'c'),
+  h('p', {}, 'd'),
 ])
 
-console.log(myVnode2)
+btn.onclick = () => {
+  patch(Vnode1, Vnode2)
+}
